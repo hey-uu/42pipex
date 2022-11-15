@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:04:52 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 00:31:27 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #  define FT_LONG_MAX 9223372036854775807L
 # endif
 
-# ifndef FT_NULL
-#  define FT_NULL	 (void *) 0
+# ifndef NULL
+#  define NULL	 (void *) 0
 # endif
 
 typedef enum e_libft_error

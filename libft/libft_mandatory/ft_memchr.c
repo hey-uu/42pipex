@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:02:11 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/10/27 14:02:12 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while ((i < n) && (s2[i] != new_c))
 		i++;
 	if (i == n)
-		return (FT_NULL);
+		return (NULL);
 	return ((void *) s2 + i);
 }

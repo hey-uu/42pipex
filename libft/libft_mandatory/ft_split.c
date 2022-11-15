@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:03:25 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/14 02:10:09 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ static t_bool	is_fill_split_ok(char **res, char const *s, char c)
 		if (s[i] != c)
 		{
 			len = ft_getlen(&s[i], c);
-			res[res_idx] = ft_malloc(FT_NULL, len + 1);
+			res[res_idx] = ft_malloc(NULL, len + 1);
 			ft_strlcpy(res[res_idx], &s[i], len + 1);
 			i += (len - 1);
 			res_idx++;
 		}
 		i++;
 	}
-	res[res_idx] = FT_NULL;
+	res[res_idx] = NULL;
 	return (TRUE);
 }
 
@@ -68,10 +68,10 @@ char	**ft_split(char const *s, char c)
 	char	**res;
 
 	if (!s)
-		return (FT_NULL);
+		return (NULL);
 	word_count = get_wordcount(s, c);
-	res = ft_malloc(FT_NULL, sizeof(char *) * (word_count + 1));
+	res = ft_malloc(NULL, sizeof(char *) * (word_count + 1));
 	if (is_fill_split_ok(res, s, c))
 		return (res);
-	return (FT_NULL);
+	return (NULL);
 }

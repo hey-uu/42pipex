@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:04:18 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/10/27 14:04:19 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ char	*ft_strnstr(const char *haydequeue, const char *needle, size_t len)
 			return ((char *)(haydequeue + i));
 		i++;
 	}
-	return (FT_NULL);
+	return (NULL);
 }

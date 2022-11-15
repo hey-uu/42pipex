@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 14:00:12 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
+/*   Created: 2022/11/14 19:09:01 by hyeyukim          #+#    #+#             */
+/*   Updated: 2022/11/15 22:11:51 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_utils.h"
 
-void	*ft_calloc(size_t count, size_t size)
+void	free_double_char_array(char **array)
 {
-	unsigned char	*new;
-	size_t			total;
-	size_t			i;
+	int	i;
 
-	if (count > 0 && size > FT_SIZE_MAX / count)
-		ft_exit(NULL, BADALLOC);
-	total = count * size;
-	new = ft_malloc(NULL, total);
-	i = 0;
-	while (i < total)
-		new[i++] = 0;
-	return ((void *) new);
+	i = -1;
+	if (!array)
+		return ;
+	while (array[++i])
+		free(array[i]);
+	free(array);
+}
+
+void	handle_error(char *message, int opt)
+{
+	if (opt == PERROR)
+		perror(message);
+	else
+		write(2, message, ft_strlen(message));
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:02:39 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/10/27 14:02:40 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	unsigned char	*src2;
 
 	if (!dst && !src)
-		return (FT_NULL);
+		return (NULL);
 	dst2 = (unsigned char *)dst;
 	src2 = (unsigned char *)src;
 	i = 0;

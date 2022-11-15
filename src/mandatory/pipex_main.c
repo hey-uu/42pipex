@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 19:09:01 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/14 23:14:58 by hyeyukim         ###   ########.fr       */
+/*   Created: 2022/11/04 09:32:33 by hyeyukim          #+#    #+#             */
+/*   Updated: 2022/11/15 15:30:23 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "parse_cmd.h"
-#include <stdio.h>
+#include "pipex_main.h"
 
-void	free_double_char_array(char **array)
+int	main(int argc, char *argv[], char *envp[])
 {
-	int	i;
+	static t_arg_set	*info;
 
-	i = -1;
-	if (!array)
-		return ;
-	while (array[++i])
-		free(array[i]);
-	free(array);
-}
-
-void	handle_error(char *message, int opt)
-{
-	if (opt == PERROR)
-		perror(message);
-	else
-		write(2, message, ft_strlen(message));
-	exit(1);
+	if (argc <= 4)
+		handle_error("few arguments", WRITE2);
+	info = create_arg_set(argc, argv, envp);
+	execute_cmd(info, 0);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:47:08 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/03 20:07:02 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_gnl_list	*create_node(int fd)
 
 	new = malloc(sizeof(t_gnl_list));
 	if (!new)
-		return (FT_NULL);
+		return (NULL);
 	new->fd = fd;
 	new->rbytes = BUFFER_SIZE;
 	new->offset = BUFFER_SIZE;
 	new->new_len = 0;
 	new->len = 1;
-	new->next = FT_NULL;
+	new->next = NULL;
 	return (new);
 }
 
@@ -89,7 +89,7 @@ char	*append_line(t_gnl_list **head, t_gnl_list *cur, char **res, int option)
 	if (!new)
 	{
 		process_error(head, cur, *res);
-		return (FT_NULL);
+		return (NULL);
 	}
 	if (*res)
 	{

@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_utils.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/14 19:09:01 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/14 23:14:58 by hyeyukim         ###   ########.fr       */
+/*   Created: 2022/11/15 22:11:13 by hyeyukim          #+#    #+#             */
+/*   Updated: 2022/11/15 22:13:00 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "parse_cmd.h"
-#include <stdio.h>
+#ifndef PIPEX_UTILS_H
+# define PIPEX_UTILS_H
 
-void	free_double_char_array(char **array)
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+
+enum e_print_option
 {
-	int	i;
+	PERROR,
+	WRITE2
+};
 
-	i = -1;
-	if (!array)
-		return ;
-	while (array[++i])
-		free(array[i]);
-	free(array);
-}
+size_t	ft_strlen(const char *s);
 
-void	handle_error(char *message, int opt)
-{
-	if (opt == PERROR)
-		perror(message);
-	else
-		write(2, message, ft_strlen(message));
-	exit(1);
-}
+#endif

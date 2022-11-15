@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:03:36 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/14 15:15:03 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strdup(const char *s1)
 	char			*new_str;
 	size_t			i;
 
-	new_str = ft_malloc(FT_NULL, len + 1);
+	new_str = ft_malloc(NULL, len + 1);
 	i = 0;
 	while (s1[i])
 	{

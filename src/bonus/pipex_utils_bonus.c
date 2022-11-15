@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_main.c                                       :+:      :+:    :+:   */
+/*   pipex_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 09:32:33 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 00:29:02 by hyeyukim         ###   ########.fr       */
+/*   Created: 2022/11/14 19:09:01 by hyeyukim          #+#    #+#             */
+/*   Updated: 2022/11/15 23:12:33 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_main.h"
+#include "pipex_utils_bonus.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	free_double_char_array(char **array)
 {
-	static t_arg_set	*info;
+	int	i;
 
-	if (argc <= 4)
-		handle_error("few arguments", WRITE2);
-	if (!ft_memcmp(argv[1], "here_doc", ft_max(ft_strlen(argv[1]), 8)))
-		info = create_arg_set_for_here_doc(argc, argv, envp);
+	i = -1;
+	if (!array)
+		return ;
+	while (array[++i])
+		free(array[i]);
+	free(array);
+}
+
+void	handle_error(char *message, int opt)
+{
+	if (opt == PERROR)
+		perror(message);
 	else
-		info = create_arg_set(argc, argv, envp);
-	execute_cmd(info, 0);
-	exit(0);
+		write(2, message, ft_strlen(message));
+	exit(1);
 }

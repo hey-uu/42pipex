@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:04:27 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/10/27 14:04:28 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrchr(const char *s, int c)
 	char		*pos;
 
 	i = 0;
-	pos = FT_NULL;
+	pos = NULL;
 	while (s[i])
 	{
 		if (s[i] == new_c)

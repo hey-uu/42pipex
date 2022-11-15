@@ -13,8 +13,8 @@
 #ifndef LIBFT_BONUS_H
 # define LIBFT_BONUS_H
 
-# ifndef FT_NULL
-#  define FT_NULL	 (void *) 0
+# ifndef NULL
+#  define NULL	 (void *) 0
 # endif
 
 typedef struct s_list

@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:01:53 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/03 20:12:33 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*cur;
 
 	if (!lst || !f)
-		return (FT_NULL);
+		return (NULL);
 	new_lst = ft_lstnew(f(lst->content));
 	if (!new_lst)
-		return (FT_NULL);
+		return (NULL);
 	cur = new_lst;
 	while (lst->next)
 	{
@@ -31,7 +31,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 		if (!cur)
 		{
 			ft_lstclear(&new_lst, del);
-			return (FT_NULL);
+			return (NULL);
 		}
 	}
 	return (new_lst);

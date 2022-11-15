@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:59:40 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/03 20:07:22 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	put_str(t_option *opt, va_list ap)
 	int			str_len;
 
 	if (!str)
-		str = "(FT_NULL)";
+		str = "(NULL)";
 	str_len = ft_strlen(str);
 	if ((opt->flag & 32) == 32 && str_len > opt->precision)
 		str_len = opt->precision;

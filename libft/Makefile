@@ -6,7 +6,7 @@
 #    By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 11:46:51 by hyeyukim          #+#    #+#              #
-#    Updated: 2022/11/03 20:09:09 by hyeyukim         ###   ########.fr        #
+#    Updated: 2022/11/16 01:52:55 by hyeyukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ include config/variables_definition.mk
 
 .PHONY : all
 all : $(NAME)
-$(NAME) : $(OBJCS)
-	$(AR) $(ARFLAGS) $@ $(OBJCS)
+$(NAME) : $(OBJ)
+	$(AR) $(ARFLAGS) $@ $(OBJ)
 
 include config/compile_rules.mk
 
@@ -39,7 +39,7 @@ printf_gnl :
 # basic rules
 .PHONY : clean fclean re
 clean :
-	$(RM) $(RMFLAGS) $(OBJCS_DIR)
+	$(RM) $(RMFLAGS) $(OBJ_DIR)
 fclean : clean
 	$(RM) $(RMFLAGS) $(NAME)
 re : 

@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_and_execute.c                                 :+:      :+:    :+:   */
+/*   fork_and_execute_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:52:31 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 15:10:15 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:25:25 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include "libft.h"
-#include "parse_cmd.h"
+#include "fork_and_execute_bonus.h"
 
 void	determine_io_fd(t_arg_set *set, int fd[2], int level)
 {
 	if (level == 0)
 	{
-		if (pipe(fd) == -1)
-			handle_error("pipe failed", PERROR);
+		pipe(fd);
 		set->cmds[0]->io_fd[0] = set->file[0];
 		set->cmds[0]->io_fd[1] = fd[1];
 	}
@@ -33,8 +28,7 @@ void	determine_io_fd(t_arg_set *set, int fd[2], int level)
 	else
 	{
 		set->cmds[level]->io_fd[0] = fd[0];
-		if (pipe(fd) == -1)
-			handle_error("pipe failed", PERROR);
+		pipe(fd);
 		set->cmds[level]->io_fd[1] = fd[1];
 	}
 }
@@ -56,11 +50,10 @@ void	do_dup2(int io_fd[2])
 void	run_child_process(t_arg_set *set, int read_fd, int level)
 {
 	if (set->cmds[level]->executable == 0)
-		handle_error("command not found", WRITE2);
+		handle_error("command not found\n", WRITE2);
 	do_dup2(set->cmds[level]->io_fd);
 	close(read_fd);
 	execve(set->cmds[level]->cmd, set->cmds[level]->cmd_argv, set->envp);
-	handle_error("command not found", PERROR);
 }
 
 void	execute_cmd(t_arg_set *set, int level)
@@ -80,6 +73,6 @@ void	execute_cmd(t_arg_set *set, int level)
 		close(set->cmds[level]->io_fd[1]);
 	close(set->cmds[level]->io_fd[0]);
 	execute_cmd(set, level + 1);
-	if (wait(FT_NULL) == -1)
+	if (wait(NULL) == -1)
 		handle_error("wait failed", PERROR);
 }

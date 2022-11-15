@@ -6,7 +6,7 @@
 #    By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 08:35:23 by hyeyukim          #+#    #+#              #
-#    Updated: 2022/11/14 05:43:22 by hyeyukim         ###   ########.fr        #
+#    Updated: 2022/11/16 01:52:55 by hyeyukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ BONUS_FILE = ft_lstadd_back \
 			ft_lstmap
 
 # directory files
-OBJCS_DIR = objcs
+OBJ_DIR = objcs
 LIBFT_DIR = libft_mandatory
 BONUS_DIR = libft_bonus
 PRINTF_DIR = ft_printf
@@ -87,21 +87,21 @@ GNL_DIR = get_next_line
 INC_DIR = includes
 
 # object files
-LIBFT_OBJCS = $(addprefix $(OBJCS_DIR)/$(LIBFT_DIR)/, $(addsuffix .o, $(LIBFT_FILE)))
-BONUS_OBJCS = $(addprefix $(OBJCS_DIR)/$(BONUS_DIR)/, $(addsuffix .o, $(BONUS_FILE)))
-PRINTF_OBJCS = $(addprefix $(OBJCS_DIR)/$(PRINTF_DIR)/, $(addsuffix .o, $(PRINTF_FILE)))
-GNL_OBJCS = $(addprefix $(OBJCS_DIR)/$(GNL_DIR)/, $(addsuffix .o, $(GNL_FILE)))
-OBJCS = $(LIBFT_OBJCS) $(B_OBJCS) $(P_OBJCS) $(G_OBJCS)
+LIBFT_OBJ = $(addprefix $(OBJ_DIR)/$(LIBFT_DIR)/, $(addsuffix .o, $(LIBFT_FILE)))
+BONUS_OBJ = $(addprefix $(OBJ_DIR)/$(BONUS_DIR)/, $(addsuffix .o, $(BONUS_FILE)))
+PRINTF_OBJ = $(addprefix $(OBJ_DIR)/$(PRINTF_DIR)/, $(addsuffix .o, $(PRINTF_FILE)))
+GNL_OBJ = $(addprefix $(OBJ_DIR)/$(GNL_DIR)/, $(addsuffix .o, $(GNL_FILE)))
+OBJ = $(LIBFT_OBJ) $(B_OBJ) $(P_OBJ) $(G_OBJ)
 
 # variables
 ifdef WITH_BONUS
-	B_OBJCS = $(BONUS_OBJCS)
+	B_OBJ = $(BONUS_OBJ)
 endif
 
 ifdef WITH_PRINTF
-	P_OBJCS = $(PRINTF_OBJCS)
+	P_OBJ = $(PRINTF_OBJ)
 endif
 
 ifdef WITH_GNL
-	G_OBJCS = $(GNL_OBJCS)
+	G_OBJ = $(GNL_OBJ)
 endif
