@@ -1,0 +1,11 @@
+Makefile
+b
+bonus
+config
+includes
+input
+libft
+mandatory
+objcs
+output
+pipex
