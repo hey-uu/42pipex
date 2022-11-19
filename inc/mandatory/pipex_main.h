@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:12:27 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 00:29:50 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:09:36 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_argv;
-	int		executable;
+	char	**cmd_arg;
 	int		io_fd[2];
 }	t_cmd_node;
 
@@ -43,7 +42,7 @@ enum e_print_option
 t_arg_set	*create_arg_set(int cnt, char **input, char **envp);
 t_arg_set	*create_arg_set_for_here_doc(int argc, char **argv, char **envp);
 void		show_cmd_vector(t_cmd_node **cmds);
-void		execute_cmd(t_arg_set *set, int level);
+int			execute_cmd(t_arg_set *set, int level);
 void		handle_error(char *message, int opt);
 
 #endif

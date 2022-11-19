@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 21:57:27 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:28:44 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:06:38 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 
+# define NOFILEDIR "pipex: No such file or directory: "
+# define NOCMD "pipex: command not found: "
+
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_argv;
-	int		executable;
+	char	**cmd_arg;
 	int		io_fd[2];
 }	t_cmd_node;
 
@@ -40,6 +42,7 @@ enum e_print_option
 };
 
 // libft
+char	*ft_strchr(const char *s, int c);
 
 // fork_and_execute functions
 void	determine_io_fd(t_arg_set *set, int fd[2], int level);
@@ -48,5 +51,6 @@ void	do_dup2(int io_fd[2]);
 
 // utils
 void	handle_error(char *message, int opt);
+void	printf_std_err(char *str1, char *str2, char *str3);
 
 #endif

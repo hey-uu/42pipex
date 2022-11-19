@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:28:45 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:25:41 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:35:37 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	open_io_files(int file[2], char *input, char *output)
 {
 	file[0] = open(input, O_RDONLY);
 	if (file[0] < 0)
-		perror("failed to open input file");
+		printf_std_err(NOFILEDIR, input, "\n");
 	file[1] = open(output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file[1] < 0)
-		perror("failed to open output file");
+		printf_std_err(NOFILEDIR, output, "\n");
 }
 
 t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp)
@@ -46,10 +46,9 @@ t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp)
 	while (++i < cnt)
 	{
 		cmds[i] = ft_calloc(1, sizeof(t_cmd_node));
-		cmds[i]->executable = 1;
-		cmds[i]->cmd_argv = ft_split(input[i], ' ');
-		if (!cmds[i]->cmd_argv)
-			handle_error("split failed", PERROR);
+		cmds[i]->cmd_arg = ft_split(input[i], ' ');
+		if (!cmds[i]->cmd_arg)
+			handle_error("pipex: split failed", PERROR);
 		cmds[i]->cmd = find_proper_path_of_cmd(cmds[i], path);
 	}
 	free_double_char_array(path);
@@ -67,6 +66,8 @@ char	**get_path_from_envp(char **envp)
 	if (!envp[i])
 		return (0);
 	paths = ft_split(envp[i] + 5, ':');
+	if (!paths)
+		handle_error("pipex: split failed", PERROR);
 	return (paths);
 }
 
@@ -77,22 +78,18 @@ char	*find_proper_path_of_cmd(t_cmd_node *node, char **path)
 	int		i;
 
 	i = -1;
-	if (!node->cmd_argv[0])
-	{
-		node->executable = 0;
+	if (!node->cmd_arg[0])
 		return (NULL);
-	}
 	while (path && path[++i])
 	{
 		absolute_path = ft_strjoin(path[i], "/");
-		cmd_name = ft_strjoin(absolute_path, node->cmd_argv[0]);
+		cmd_name = ft_strjoin(absolute_path, node->cmd_arg[0]);
 		free(absolute_path);
 		if (!access(cmd_name, X_OK))
 			return (cmd_name);
 		free(cmd_name);
 	}
-	if (ft_strchr(node->cmd_argv[0], '/') && !access(node->cmd_argv[0], X_OK))
-		return (ft_strdup(node->cmd_argv[0]));
-	node->executable = 0;
+	if (ft_strchr(node->cmd_arg[0], '/') && !access(node->cmd_arg[0], X_OK))
+		return (ft_strdup(node->cmd_arg[0]));
 	return (NULL);
 }

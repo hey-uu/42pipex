@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 22:27:26 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 23:13:10 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:06:41 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,10 @@
 # include <fcntl.h>
 # include <stdlib.h>
 
-
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_argv;
-	int		executable;
+	char	**cmd_arg;
 	int		io_fd[2];
 }	t_cmd_node;
 

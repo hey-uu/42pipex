@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 09:32:33 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:29:50 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:33:18 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(int argc, char *argv[], char *envp[])
 	static t_arg_set	*info;
 
 	if (argc <= 4)
-		handle_error("few arguments", WRITE2);
-	if (!ft_memcmp(argv[1], "heredoc", ft_max(ft_strlen(argv[1]), 8)))
+		handle_error("piepx: few arguments", WRITE2);
+	if (!ft_memcmp(argv[1], "here_doc", ft_max(ft_strlen(argv[1]), 8)))
 		info = create_arg_set_for_heredoc(argc, argv, envp);
 	else
 		info = create_arg_set(argc, argv, envp);

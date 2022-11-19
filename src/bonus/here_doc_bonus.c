@@ -53,7 +53,13 @@ char	*get_random_temp_file(void)
 	buf[1] = 0;
 	while (!access(file_name, F_OK))
 	{
+		if (ft_strlen(file_name) == 255)
+		{
+			free(file_name);
+			file_name = ft_strdup("/tmp/pipex_tmp");
+		}
 		read(fd, buf, 1);
+		buf[0] = ((int)buf[0] + 128) % 24 + 'a';
 		new_file_name = ft_strjoin(file_name, buf);
 		free(file_name);
 		file_name = new_file_name;

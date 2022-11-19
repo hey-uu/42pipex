@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:34:15 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:10:14 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 12:03:51 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+# define NOFILEDIR "pipex: No such file or directory: "
+# define NOCMD "pipex: command not found: "
+
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_argv;
-	int		executable;
+	char	**cmd_arg;
 	int		io_fd[2];
 }	t_cmd_node;
 
@@ -52,6 +54,7 @@ char		*ft_strchr(const char *s, int c);
 // utils
 void		handle_error(char *message, int opt);
 void		free_double_char_array(char **array);
+void		printf_std_err(char *str1, char *str2, char *str3);
 
 // parse_cmd functions
 void		open_io_files(int file[2], char *input, char *output);
