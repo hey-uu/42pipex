@@ -13,10 +13,6 @@
 #ifndef LIBFT_BONUS_H
 # define LIBFT_BONUS_H
 
-# ifndef NULL
-#  define NULL	 (void *) 0
-# endif
-
 typedef struct s_list
 {
 	void			*content;

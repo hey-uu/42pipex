@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 22:24:08 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/15 22:08:22 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/19 13:44:01 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
-# endif
-
-# ifndef NULL
-#  define NULL (void *) 0
 # endif
 
 # include <unistd.h>
