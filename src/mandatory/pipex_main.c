@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 09:32:33 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 13:33:38 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 20:53:17 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int	main(int argc, char *argv[], char *envp[])
 		handle_error("pipex: few arguments", WRITE2);
 	info = create_arg_set(argc, argv, envp);
 	execute_cmd(info, 0);
-	exit(0);
+	return (WEXITSTATUS(info->stat));
 }

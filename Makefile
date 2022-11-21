@@ -6,7 +6,7 @@
 #    By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/15 17:02:57 by hyeyukim          #+#    #+#              #
-#    Updated: 2022/11/19 13:39:53 by hyeyukim         ###   ########.fr        #
+#    Updated: 2022/11/22 00:08:33 by hyeyukim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ include config/compile_rules.mk
 
 .PHONY : clean fclean re
 clean :
+	make -C $(LIB_DIR) fclean
 	$(RM) $(RMFLAGS) $(OBJ_DIR)
 
 fclean : clean

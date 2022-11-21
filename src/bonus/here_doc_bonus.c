@@ -20,25 +20,24 @@ t_arg_set	*create_arg_set_for_heredoc(int argc, char **argv, char **envp)
 	set->cmds = create_cmd_vector(argc - 4, &argv[3], envp);
 	set->cmd_cnt = argc - 4;
 	set->envp = envp;
-	open_io_files_for_heredoc(set->file, argv[2], argv[argc - 1]);
+	set->in = make_input_file(argv[2]);
+	set->out = argv[argc - 1];
+	set->is_heredoc = 1;
 	return (set);
 }
 
-void	open_io_files_for_heredoc(int file[2], char *limiter, char *output)
+char	*make_input_file(char *limiter)
 {
-	char	*input;
+	char	*in;
+	int		fd;
 
-	input = get_random_temp_file();
-	file[0] = open(input, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (file[0] < 0)
-		perror("failed opening input file");
-	get_heredoc_input(file[0], limiter);
-	close(file[0]);
-	file[0] = open(input, O_RDONLY);
-	unlink(input);
-	file[1] = open(output, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (file[1] < 0)
-		perror("failed opening output file");
+	in = get_random_temp_file();
+	fd = open(in, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (fd < 0)
+		perror("failed to make temporary in file");
+	get_heredoc_input(fd, limiter);
+	close(fd);
+	return (in);
 }
 
 char	*get_random_temp_file(void)

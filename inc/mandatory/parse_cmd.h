@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:34:15 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 12:03:51 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 21:16:04 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_arg;
-	int		io_fd[2];
+	char	**args;
 }	t_cmd_node;
 
 typedef struct s_arg_set
 {
+	char		*in;
+	char		*out;
+	char		**envp;
 	t_cmd_node	**cmds;
 	int			cmd_cnt;
-	char		**envp;
-	int			file[2];
+	int			io_fd[2];
+	int			stat;
 }	t_arg_set;
 
 enum e_print_option
@@ -57,8 +59,7 @@ void		free_double_char_array(char **array);
 void		printf_std_err(char *str1, char *str2, char *str3);
 
 // parse_cmd functions
-void		open_io_files(int file[2], char *input, char *output);
-t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp);
+t_cmd_node	**create_cmd_vector(int cnt, char **in, char **envp);
 char		**get_path_from_envp(char **envp);
 char		*find_proper_path_of_cmd(t_cmd_node *node, char **path);
 

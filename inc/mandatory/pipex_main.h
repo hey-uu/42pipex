@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 00:12:27 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 13:09:36 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 21:16:04 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,24 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "libft.h"
 # include <stdio.h>
+# include <sys/wait.h>
 
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_arg;
-	int		io_fd[2];
+	char	**args;
 }	t_cmd_node;
 
 typedef struct s_arg_set
 {
+	char		*in;
+	char		*out;
+	char		**envp;
 	t_cmd_node	**cmds;
 	int			cmd_cnt;
-	char		**envp;
-	int			file[2];
+	int			io_fd[2];
+	int			stat;
 }	t_arg_set;
 
 enum e_print_option
@@ -39,10 +41,14 @@ enum e_print_option
 	WRITE2
 };
 
-t_arg_set	*create_arg_set(int cnt, char **input, char **envp);
+// parse_cmd
+t_arg_set	*create_arg_set(int cnt, char **in, char **envp);
 t_arg_set	*create_arg_set_for_here_doc(int argc, char **argv, char **envp);
-void		show_cmd_vector(t_cmd_node **cmds);
-int			execute_cmd(t_arg_set *set, int level);
+
+// fork_and_execute
+int			execute_cmd(t_arg_set *set, int lev);
+
+// pipex_utils
 void		handle_error(char *message, int opt);
 
 #endif

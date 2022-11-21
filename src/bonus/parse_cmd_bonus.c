@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:28:45 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 13:35:37 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 21:16:04 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,17 @@ t_arg_set	*create_arg_set(int argc, char **argv, char **envp)
 	t_arg_set	*set;
 
 	set = ft_malloc(NULL, sizeof(t_arg_set));
-	open_io_files(set->file, argv[1], argv[argc - 1]);
+	set->in = argv[1];
+	set->out = argv[argc - 1];
+	set->envp = envp;
 	set->cmds = create_cmd_vector(argc - 3, &argv[2], envp);
 	set->cmd_cnt = argc - 3;
-	set->envp = envp;
+	set->stat = 0;
+	set->is_heredoc = 0;
 	return (set);
 }
 
-void	open_io_files(int file[2], char *input, char *output)
-{
-	file[0] = open(input, O_RDONLY);
-	if (file[0] < 0)
-		printf_std_err(NOFILEDIR, input, "\n");
-	file[1] = open(output, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file[1] < 0)
-		printf_std_err(NOFILEDIR, output, "\n");
-}
-
-t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp)
+t_cmd_node	**create_cmd_vector(int cnt, char **in, char **envp)
 {
 	t_cmd_node	**cmds;
 	char		**path;
@@ -46,8 +39,8 @@ t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp)
 	while (++i < cnt)
 	{
 		cmds[i] = ft_calloc(1, sizeof(t_cmd_node));
-		cmds[i]->cmd_arg = ft_split(input[i], ' ');
-		if (!cmds[i]->cmd_arg)
+		cmds[i]->args = ft_split(in[i], ' ');
+		if (!cmds[i]->args)
 			handle_error("pipex: split failed", PERROR);
 		cmds[i]->cmd = find_proper_path_of_cmd(cmds[i], path);
 	}
@@ -78,18 +71,18 @@ char	*find_proper_path_of_cmd(t_cmd_node *node, char **path)
 	int		i;
 
 	i = -1;
-	if (!node->cmd_arg[0])
+	if (!node->args[0])
 		return (NULL);
 	while (path && path[++i])
 	{
 		absolute_path = ft_strjoin(path[i], "/");
-		cmd_name = ft_strjoin(absolute_path, node->cmd_arg[0]);
+		cmd_name = ft_strjoin(absolute_path, node->args[0]);
 		free(absolute_path);
 		if (!access(cmd_name, X_OK))
 			return (cmd_name);
 		free(cmd_name);
 	}
-	if (ft_strchr(node->cmd_arg[0], '/') && !access(node->cmd_arg[0], X_OK))
-		return (ft_strdup(node->cmd_arg[0]));
+	if (ft_strchr(node->args[0], '/') && !access(node->args[0], X_OK))
+		return (ft_strdup(node->args[0]));
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 09:32:33 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 13:33:18 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 19:24:10 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	main(int argc, char *argv[], char *envp[])
 	else
 		info = create_arg_set(argc, argv, envp);
 	execute_cmd(info, 0);
-	exit(0);
+	return (WEXITSTATUS(info->stat));
 }

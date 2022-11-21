@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 22:27:26 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/19 13:06:41 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/21 21:16:04 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 typedef struct s_cmd_node
 {
 	char	*cmd;
-	char	**cmd_arg;
-	int		io_fd[2];
+	char	**args;
 }	t_cmd_node;
 
 typedef struct s_arg_set
@@ -30,7 +29,11 @@ typedef struct s_arg_set
 	t_cmd_node	**cmds;
 	int			cmd_cnt;
 	char		**envp;
-	int			file[2];
+	char		*in;
+	char		*out;
+	int			is_heredoc;
+	int			io_fd[2];
+	int			stat;
 }	t_arg_set;
 
 enum e_print_option
@@ -49,11 +52,11 @@ int			ft_max(int a, int b);
 size_t		ft_strlen(const char *s);
 
 // heredoc functions
-void		open_io_files_for_heredoc(int *file, char *limiter, char *output);
+char		*make_input_file(char *limiter);
 char		*get_random_temp_file(void);
 void		get_heredoc_input(int fd, char *limiter);
 
 // parse cmd functions
-t_cmd_node	**create_cmd_vector(int cnt, char **input, char **envp);
+t_cmd_node	**create_cmd_vector(int cnt, char **in, char **envp);
 
 #endif
