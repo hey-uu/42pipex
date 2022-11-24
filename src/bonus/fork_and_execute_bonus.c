@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 05:52:31 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/21 21:16:04 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:39:51 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,14 @@ void	determine_io_fd(t_arg_set *set, int fd[2], int lev)
 {
 	if (lev == 0)
 	{
-		set->io_fd[0] = open(set->in, O_RDONLY);
-		if (set->io_fd[0] < 0)
-			printf_std_err(NOFILEDIR, set->in, "\n");
+		set->io_fd[0] = open_io_files(set->in, set->is_heredoc, INPUT);
 		pipe(fd);
 		set->io_fd[1] = fd[1];
 	}
 	else if (lev == (set->cmd_cnt - 1))
 	{
 		set->io_fd[0] = fd[0];
-		if (set->is_heredoc)
-			set->io_fd[1] = open(set->out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			set->io_fd[1] = open(set->out, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (set->io_fd[1] < 0)
-			printf_std_err(NOFILEDIR, set->out, "\n");
+		set->io_fd[1] = open_io_files(set->out, set->is_heredoc, OUTPUT);
 	}
 	else
 	{
@@ -96,4 +89,27 @@ void	do_dup2(int io_fd[2])
 	if (res == -1)
 		handle_error("pipex: dup2 error", PERROR);
 	close(io_fd[1]);
+}
+
+int	open_io_files(char *file, int is_heredoc, int file_type)
+{
+	int	fd;
+
+	fd = 0;
+	if (file_type == INPUT)
+	{
+		fd = open(file, O_RDONLY);
+		if (is_heredoc)
+			unlink(file);
+	}
+	else if (file_type == OUTPUT)
+	{
+		if (is_heredoc)
+			fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		else
+			fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
+	if (fd < 0)
+		printf_std_err(NOFILEDIR, file, "\n");
+	return (fd);
 }

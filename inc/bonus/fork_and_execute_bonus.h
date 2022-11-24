@@ -6,7 +6,7 @@
 /*   By: hyeyukim <hyeyukim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 21:57:27 by hyeyukim          #+#    #+#             */
-/*   Updated: 2022/11/21 21:19:10 by hyeyukim         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:31:29 by hyeyukim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,17 @@ typedef struct s_arg_set
 	int			io_fd[2];
 	int			stat;
 }	t_arg_set;
+
 enum e_print_option
 {
 	PERROR,
 	WRITE2
+};
+
+enum e_file_option
+{
+	INPUT,
+	OUTPUT
 };
 
 // libft
@@ -52,6 +59,7 @@ char	*ft_strchr(const char *s, int c);
 void	determine_io_fd(t_arg_set *set, int fd[2], int lev);
 void	run_child_process(t_arg_set *set, int read_fd, int lev);
 void	do_dup2(int io_fd[2]);
+int		open_io_files(char *file, int is_heredoc, int file_type);
 
 // utils
 void	handle_error(char *message, int opt);
